@@ -45,7 +45,7 @@ public abstract class BorderImageView extends AppCompatImageView implements View
         path = new Path();
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.RED);
+        // mPaint.setColor(Color.RED);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeWidth(getApplyDimension(6));

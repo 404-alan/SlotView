@@ -1,12 +1,18 @@
 package com.example.justfortest;
 
 import android.graphics.drawable.Drawable;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,39 +23,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ImageView rectView = findViewById(R.id.rectView);
-        final ImageView circleView = findViewById(R.id.circleView);
-        SwitchCompat switchCompat = findViewById(R.id.overlaySwitch);
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isCircleShow = isChecked;
-                if (isChecked) {
-                    showView = circleView;
-                    showOverlaytDr = getResources().getDrawable(R.drawable.circle);
-                    circleView.setImageDrawable(showOverlaytDr);
-                    rectView.setVisibility(View.GONE);
-                    circleView.setVisibility(View.VISIBLE);
-                } else {
-                    showView = rectView;
-                    showOverlaytDr = getResources().getDrawable(R.drawable.rect);
-                    rectView.setImageDrawable(showOverlaytDr);
-                    rectView.setVisibility(View.VISIBLE);
-                    circleView.setVisibility(View.GONE);
-                }
-                showView.setTag(true);
-            }
-        });
-
-        findViewById(R.id.hideSlotButton).setOnClickListener(new View.OnClickListener() {
+        Button btn = findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                boolean isShowingOverlay = (boolean) showView.getTag();
-                if (isShowingOverlay) {
-                    showView.setImageDrawable(null);
-                } else {
-                    showView.setImageDrawable(showOverlaytDr);
-                }
-                showView.setTag(!isShowingOverlay);
+                TextView textView = findViewById(R.id.text);
+                    int length = dpToPx(200);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(length,length);
+                    textView.setLayoutParams(params);
+                    textView.setPivotX(textView.getX() / 2);
+                    textView.setPivotY(0);
+                    textView.setScaleX(0.5f);
+                    textView.setScaleY(0.5f);
             }
         });
+    }
+
+    private int dpToPx(int px) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,px,getResources().getDisplayMetrics());
     }
 }
